@@ -18,29 +18,21 @@ KanjiLCD<LiquidCrystal_I2C> kanji(lcd);
 void setup() { lcd.init(); lcd.backlight(); }
 
 void loop() {
-  kanji.show("仙", 0);                         // 左端3マスに「仙」
-  kanji.showSequence("仙台のひらがな", 0, 800);  // 1文字ずつ切り替え
+  kanji.show("日", 0);                         // 左端3マスに「日」
+  kanji.showSequence("今日の曜日", 0, 800);  // 1文字ずつ切り替え
 }
 ```
 
-ソースファイルは **UTF-8** で保存してください(Arduino IDEは既定でUTF-8です)。
-
-## 収録文字(#include の前に #define で切り替え)
-
-| 指定 | 収録 | データ量 | 向いているボード |
-|---|---|---|---|
-| (なし) compact | ひらがな・カタカナ・頻出漢字+南北線の文字 461字 | 約14KB | Uno / Nano など |
-| `#define KANJILCD_FONT_NAMBOKU` | 仙台市営地下鉄南北線のアナウンス文の文字 142字 | 約4.4KB | Uno / Nano など |
-| `#define KANJILCD_FONT_FULL` | JIS第一水準を含む 3,152字 | 約98KB | ESP32 / RP2040 / ARM系(**AVRは不可**) |
+ソースファイルは **UTF-8** で保存してください
 
 ## API
 
 | 関数 | 内容 |
 |---|---|
-| `show("仙", col, row=0)` | UTF-8の先頭1文字を表示。収録外なら `false` |
+| `show("日", col, row=0)` | UTF-8の先頭1文字を表示。収録外なら `false` |
 | `showCode(0x4ED9, col, row=0)` | Unicodeコードで表示 |
-| `showSequence("仙台", col, ms, row=0)` | 1文字ずつ ms ミリ秒おきに切り替え |
-| `has("仙")` | 収録されているか |
+| `showSequence("日曜", col, ms, row=0)` | 1文字ずつ ms ミリ秒おきに切り替え |
+| `has("日")` | 収録されているか |
 
 4行LCDなら `row` に 0 や 2 を指定できます。
 
@@ -61,9 +53,6 @@ python tools/make_font_arduino.py tools/shnmk16.bdf
 
 `tools/namboku.txt` の文字が南北線セットになります。別のテキストに替えれば、その文字のセットを作れます。
 
-## 同じ字形の micro:bit 版
-
-MakeCode用: https://github.com/nori-pixl/pxt-kanji-lcd1602
 
 ## ライセンス
 
